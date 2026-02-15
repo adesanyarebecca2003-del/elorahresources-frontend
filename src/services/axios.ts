@@ -1,10 +1,14 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
-export default api;
+if (!baseURL) {
+  throw new Error("VITE_API_BASE_URL is not set");
+}
+
+const api = axios.create({
+  baseURL,
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
@@ -31,3 +35,5 @@ api.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+export default api;
