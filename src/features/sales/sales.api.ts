@@ -25,6 +25,7 @@ export type SalesReturnLineCreate = {
 export type SalesReturnCreate = {
   return_date: string;
   customer: string;
+  amount_refunded: number;
   lines: SalesReturnLineCreate[];
 };
 
