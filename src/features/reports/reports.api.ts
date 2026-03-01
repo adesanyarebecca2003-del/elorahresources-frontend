@@ -10,7 +10,7 @@ export const fetchTrialBalance = async (asAt: string) => {
 };
 
 export const getTrialBalanceExportUrl = (asAt: string, format: "csv" | "excel") => {
-  const base = import.meta.env.VITE_API_URL;
+  const base = import.meta.env.VITE_API_BASE_URL;
   return `${base}/trial-balance/export?as_at=${encodeURIComponent(asAt)}&format=${format}`;
 };
 
