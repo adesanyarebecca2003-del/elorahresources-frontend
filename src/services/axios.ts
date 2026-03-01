@@ -1,14 +1,17 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL;
+let baseURL = import.meta.env.VITE_API_BASE_URL;
 
 if (!baseURL) {
   throw new Error("VITE_API_BASE_URL is not set");
 }
 
-const api = axios.create({
-  baseURL,
-});
+// ✅ Force https when the site is served over https (prevents Mixed Content)
+if (window.location.protocol === "https:" && baseURL.startsWith("http://")) {
+  baseURL = baseURL.replace("http://", "https://");
+}
+
+const api = axios.create({ baseURL });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
